@@ -1,0 +1,19 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>SoMiLaMi Foorum</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h1><span th:text="${keskustelut.aihe}"></span>!</h1>
+
+        <p>Täällä on kaikki <span th:text="${keskustelut.aihe}"></span> aiheiset keskustelut</p>
+        <ol>
+            <li th:each="keskusteu: ${keskustelut}">
+                <span th:text="${keskustelut.otsikko}">Aihe</span>
+            </li>
+        </ol>
+    </body>
+</html>

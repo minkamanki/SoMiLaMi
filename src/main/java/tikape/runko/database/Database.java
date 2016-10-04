@@ -17,7 +17,12 @@ public class Database {
     }
 
     public void init() {
-        List<String> lauseet = sqliteLauseet();
+        List<String> lauseet = null;
+        if (this.databaseAddress.contains("postgres")) {
+            lauseet = postgreLauseet();
+        } else {
+            lauseet = sqliteLauseet();
+        }
 
         // "try with resources" sulkee resurssin automaattisesti lopuksi
         try (Connection conn = getConnection()) {
@@ -33,6 +38,18 @@ public class Database {
             // jos tietokantataulu on jo olemassa, ei komentoja suoriteta
             System.out.println("Error >> " + t.getMessage());
         }
+    }
+
+    private List<String> postgreLauseet() {
+        ArrayList<String> lista = new ArrayList<>();
+
+        // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
+        lista.add("DROP TABLE Aihe;");
+        // heroku käyttää SERIAL-avainsanaa uuden tunnuksen automaattiseen luomiseen
+        lista.add("CREATE TABLE Aihe (id Integer PRIMARY KEY, nimi varchar(50));");
+        lista.add("INSERT INTO Aihe (nimi) VALUES ('postgresql-tuote');");
+
+        return lista;
     }
 
     private List<String> sqliteLauseet() {
