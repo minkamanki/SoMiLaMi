@@ -7,12 +7,10 @@
     </head>
 
     <body>
-        <h1><span th:text="${keskustelut.aihe}"></span>!</h1>
-
-        <p>Täällä on kaikki <span th:text="${keskustelut.aihe}"></span> aiheiset keskustelut</p>
+         <h1>Keskustelut:</h1>
         <ol>
-            <li th:each="keskusteu: ${keskustelut}">
-                <span th:text="${keskustelut.otsikko}">Aihe</span>
+            <li th:each="keskustelu: ${keskustelut}">
+                <a th:href="${'/keskustelu/' + keskustelu.id}"><span th:text="${keskustelu.otsikko}"></span></a>
             </li>
         </ol>
     </body>

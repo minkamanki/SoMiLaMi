@@ -17,10 +17,10 @@ public class Keskustelunavaus {
     private String lahettaja;
     private String otsikko;
     private String sisalto;
-    private Timestamp aika;
+    private String aika;
     private Integer aihe;
 
-    public Keskustelunavaus(Integer id, String lahettaja, String otsikko, String sisalto, Timestamp aika, Integer aihe) {
+    public Keskustelunavaus(Integer id, String lahettaja, String otsikko, String sisalto, String aika, Integer aihe) {
         this.id = id;
         this.lahettaja = lahettaja;
         this.aika = aika;
@@ -41,7 +41,7 @@ public class Keskustelunavaus {
         return otsikko;
     }
 
-    public Timestamp getAika() {
+    public String getAika() {
         return aika;
     }
 
@@ -57,7 +57,7 @@ public class Keskustelunavaus {
         this.id = id;
     }
 
-    public void setAika(Timestamp aika) {
+    public void setAika(String aika) {
         this.aika = aika;
     }
 

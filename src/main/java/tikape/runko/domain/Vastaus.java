@@ -14,12 +14,12 @@ import java.sql.Timestamp;
 public class Vastaus {
 
     private Integer id;
-    private Keskustelunavaus viesti;
+    private Integer viesti;
     private String lahetaja;
     private String sisalto;
-    private Timestamp aika;
+    private String aika;
 
-    public Vastaus(Integer id, Keskustelunavaus viesti, String lahetaja, String sisalto, Timestamp aika) {
+    public Vastaus(Integer id, Integer viesti, String lahetaja, String sisalto, String aika) {
         this.id = id;
         this.viesti = viesti;
         this.lahetaja = lahetaja;
@@ -27,7 +27,7 @@ public class Vastaus {
         this.aika = aika;
     }
 
-    public Timestamp getAika() {
+    public String getAika() {
         return aika;
     }
 
@@ -39,7 +39,7 @@ public class Vastaus {
         return sisalto;
     }
 
-    public Keskustelunavaus getViesti() {
+    public Integer getViesti() {
         return viesti;
     }
 
@@ -52,7 +52,7 @@ public class Vastaus {
         this.id = id;
     }
 
-    public void setAika(Timestamp aika) {
+    public void setAika(String aika) {
         this.aika = aika;
     }
 
@@ -64,7 +64,7 @@ public class Vastaus {
         this.sisalto = sisalto;
     }
 
-    public void setViesti(Keskustelunavaus viesti) {
+    public void setViesti(Integer viesti) {
         this.viesti = viesti;
     }
 

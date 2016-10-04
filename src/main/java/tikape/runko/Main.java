@@ -6,7 +6,6 @@ import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.Database;
 import tikape.runko.database.FoorumDao;
-import tikape.runko.database.KeskustelutDao;
 
 public class Main {
     /*mainin suorittamalla pääsee selaimella "osoitteessa" http://localhost:4567/ olevaan SoMiLaMi foorumiin
@@ -18,11 +17,9 @@ public class Main {
 //        database.init();
 
         FoorumDao foorumDao = new FoorumDao(database);
-        KeskustelutDao kDao = new KeskustelutDao(database);
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("viesti", "tervehdys");
 
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
@@ -39,6 +36,13 @@ public class Main {
             map.put("keskustelut", foorumDao.findKeskustelut(Integer.parseInt(req.params("id"))));
 
             return new ModelAndView(map, "keskustelut");
+        }, new ThymeleafTemplateEngine());
+        
+        get("/keskustelu/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("kesksutelu", foorumDao.findVastaukset(Integer.parseInt(req.params("id"))));
+
+            return new ModelAndView(map, "keskustelu");
         }, new ThymeleafTemplateEngine());
     }
 }

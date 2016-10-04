@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.domain.Aihealue;
 import tikape.runko.domain.Keskustelunavaus;
+import tikape.runko.domain.Vastaus;
 
 public class FoorumDao implements Dao<Aihealue, Integer> {
 
@@ -85,7 +86,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
             String lahettaja = rs.getString("lähettäjä");
             String otsikko = rs.getString("otsikko");
             String sisalto = rs.getString("sisältö");
-            Timestamp aika = rs.getTimestamp("aika");
+            String aika = rs.getString("aika");
             Integer aihealue = rs.getInt("aihe");
 
             keskustelut.add(new Keskustelunavaus(id, lahettaja, otsikko, sisalto, aika, aihealue));
@@ -96,6 +97,29 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         connection.close();
 
         return keskustelut;
+    }
+    
+        public  List<Vastaus> findVastaukset(Integer key)throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaus WHERE viesti = " + key + ";");
+
+        ResultSet rs = stmt.executeQuery();
+        List<Vastaus> vastaukset = new ArrayList<>();
+        while (rs.next()) {
+            Integer id = rs.getInt("id");
+            String lahettaja = rs.getString("lähettäjä");
+            String sisalto = rs.getString("sisältö");
+            String aika = rs.getString("aika");
+            Integer viesti = rs.getInt("viesti");
+
+            vastaukset.add(new Vastaus(id,viesti, lahettaja, sisalto, aika));
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return vastaukset;
     }
 
 }
