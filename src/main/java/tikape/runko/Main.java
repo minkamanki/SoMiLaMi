@@ -10,6 +10,7 @@ import tikape.runko.database.FoorumDao;
 public class Main {
     /*mainin suorittamalla pääsee selaimella "osoitteessa" http://localhost:4567/ olevaan SoMiLaMi foorumiin
     jossa sivulla http://localhost:4567/aiheet/ on listattuna aiheet. Jokaisella aiheelle on myös oma sivus http://localhost:4567/aiheet/"aiheen id".
+    http://localhost:4567/keskustelu/"keskustelunavauksen id" osoitteesta löytyy vastaukset kesksutelunavaukseen.
     */
 
     public static void main(String[] args) throws Exception {
@@ -40,7 +41,7 @@ public class Main {
         
         get("/keskustelu/:id", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("kesksutelu", foorumDao.findVastaukset(Integer.parseInt(req.params("id"))));
+            map.put("vastaukset", foorumDao.findVastaukset(Integer.parseInt(req.params("id"))));
 
             return new ModelAndView(map, "keskustelu");
         }, new ThymeleafTemplateEngine());

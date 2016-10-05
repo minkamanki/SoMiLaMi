@@ -7,12 +7,16 @@
     </head>
 
     <body>
-
+        <p>Vastaukset:</p>
         <ol>
-            <li th:each="vastaus : ${keskustelu}">
-                <p>jee</p>
-                <p><span th:text="${vastaus.aika}"></span></p>
+
+            <li th:each="vastaus: ${vastaukset}">
+                <p><span th:text="${vastaus.sisalto}"></span></p>
             </li>
+
+
+
         </ol>
+        <p><a href="/aiheet">Tästä pääset takaisin aihealueisiin.</a></p>
     </body>
 </html>

@@ -11,6 +11,7 @@
         <ol>
             <li th:each="keskustelu: ${keskustelut}">
                 <a th:href="${'/keskustelu/' + keskustelu.id}"><span th:text="${keskustelu.otsikko}"></span></a>
+                <span th:text="${keskustelu.sisalto}"></span>
             </li>
         </ol>
     </body>

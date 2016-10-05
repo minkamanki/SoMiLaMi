@@ -113,6 +113,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
             Integer viesti = rs.getInt("viesti");
 
             vastaukset.add(new Vastaus(id,viesti, lahettaja, sisalto, aika));
+
         }
 
         rs.close();
