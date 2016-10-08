@@ -7,12 +7,19 @@
     </head>
 
     <body>
-         <h1>Keskustelut:</h1>
-        <ol>
-            <li th:each="keskustelu: ${keskustelut}">
-                <a th:href="${'/keskustelu/' + keskustelu.id}"><span th:text="${keskustelu.otsikko}"></span></a>
-                <span th:text="${keskustelu.sisalto}"></span>
-            </li>
-        </ol>
+         <h1>Alue:  <span th:text="${keskustelut[0].aihealueNimi}"></span></h1>
+         
+        <table>
+            <tr>
+                <th>Otsikko</th>
+                <th>Vastauksia yhteensä</th>
+                <th>Viimeisin vastaus</th>
+            </tr>
+            <tr th:each="keskustelu: ${keskustelut}">
+                <td th:text="${keskustelu.otsikko}"></td>
+                <td th:text="${keskustelu.vastauksiaKpl}"></td>	
+                <td th:text="${keskustelu.viimVastaus}"></td>	
+            </tr>
+        </table>
     </body>
 </html>

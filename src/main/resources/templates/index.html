@@ -11,6 +11,19 @@
 
         <p>Tervetuloa foorumiimme!</p>
 
-        <p><a href="/aiheet">Tästä pääset aihealueisiin.</a></p>
+
+        <table>
+            <tr>
+                <th>Aihe</th>
+                <th>Viestejä yhteensä</th>
+                <th>Viimeisin viesti</th>
+            </tr>
+            <tr th:each="aihe: ${aiheet}">
+                <td> <a th:href="${'/aihe/' + aihe.id}"><span th:text="${aihe.nimi}"></span></a></td>
+                <td th:text="${aihe.viesteja}"></td>	
+                <td th:text="${aihe.viimViestiAika}"></td>	
+            </tr>
+        </table>
+
     </body>
 </html>

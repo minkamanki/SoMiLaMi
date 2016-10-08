@@ -19,14 +19,28 @@ public class Keskustelunavaus {
     private String sisalto;
     private String aika;
     private Integer aihe;
+    private String viimVastaus;
+    private Integer vastauksiaKpl;
+    private String aihealueNimi;
 
-    public Keskustelunavaus(Integer id, String lahettaja, String otsikko, String sisalto, String aika, Integer aihe) {
+    public Keskustelunavaus(Integer id, String lahettaja, String otsikko, String sisalto, String aika, Integer aihe, Integer vastauksiaKpl, String viimVastaus, String aihealueNimi) {
         this.id = id;
         this.lahettaja = lahettaja;
         this.aika = aika;
         this.otsikko = otsikko;
         this.sisalto = sisalto;
         this.aihe = aihe;
+        this.vastauksiaKpl = vastauksiaKpl;
+        this.viimVastaus = viimVastaus;
+        this.aihealueNimi = aihealueNimi;
+    }
+
+    public void setAihealueNimi(String aihealueNimi) {
+        this.aihealueNimi = aihealueNimi;
+    }
+
+    public String getAihealueNimi() {
+        return aihealueNimi;
     }
 
     public Integer getId() {
@@ -75,6 +89,22 @@ public class Keskustelunavaus {
 
     public void setAihe(Integer aihe) {
         this.aihe = aihe;
+    }
+
+    public Integer getVastauksiaKpl() {
+        return vastauksiaKpl;
+    }
+
+    public String getViimVastaus() {
+        return viimVastaus;
+    }
+
+    public void setVastauksiaKpl(Integer vastauksiaKpl) {
+        this.vastauksiaKpl = vastauksiaKpl;
+    }
+
+    public void setViimVastaus(String viimVastaus) {
+        this.viimVastaus = viimVastaus;
     }
 
 }

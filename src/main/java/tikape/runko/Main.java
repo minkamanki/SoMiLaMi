@@ -8,10 +8,7 @@ import tikape.runko.database.Database;
 import tikape.runko.database.FoorumDao;
 
 public class Main {
-    /*mainin suorittamalla pääsee selaimella "osoitteessa" http://localhost:4567/ olevaan SoMiLaMi foorumiin
-    jossa sivulla http://localhost:4567/aiheet/ on listattuna aiheet. Jokaisella aiheelle on myös oma sivus http://localhost:4567/aiheet/"aiheen id".
-    http://localhost:4567/keskustelu/"keskustelunavauksen id" osoitteesta löytyy vastaukset kesksutelunavaukseen.
-    */
+    /*mainin suorittamalla pääsee selaimella "osoitteessa" http://localhost:4567/ olevaan SoMiLaMi foorumiin*/
 
     public static void main(String[] args) throws Exception {
         Database database = new Database("jdbc:sqlite:SoMiLaMi.db");
@@ -21,29 +18,30 @@ public class Main {
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
+            map.put("aiheet", foorumDao.findAll());
 
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
 
-        get("/aiheet", (req, res) -> {
-            HashMap map = new HashMap<>();
-            map.put("aiheet", foorumDao.findAll());
+//        get("/aiheet", (req, res) -> {
+//            HashMap map = new HashMap<>();
+//            map.put("aiheet", foorumDao.findAll());
+//
+//            return new ModelAndView(map, "aiheet");
+//        }, new ThymeleafTemplateEngine());
 
-            return new ModelAndView(map, "aiheet");
-        }, new ThymeleafTemplateEngine());
-
-        get("/aiheet/:id", (req, res) -> {
+        get("/aihe/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("keskustelut", foorumDao.findKeskustelut(Integer.parseInt(req.params("id"))));
 
             return new ModelAndView(map, "keskustelut");
         }, new ThymeleafTemplateEngine());
-        
-        get("/keskustelu/:id", (req, res) -> {
-            HashMap map = new HashMap<>();
-            map.put("vastaukset", foorumDao.findVastaukset(Integer.parseInt(req.params("id"))));
-
-            return new ModelAndView(map, "keskustelu");
-        }, new ThymeleafTemplateEngine());
+//        
+//        get("/keskustelu/:id", (req, res) -> {
+//            HashMap map = new HashMap<>();
+//            map.put("vastaukset", foorumDao.findVastaukset(Integer.parseInt(req.params("id"))));
+//
+//            return new ModelAndView(map, "keskustelu");
+//        }, new ThymeleafTemplateEngine());
     }
 }
