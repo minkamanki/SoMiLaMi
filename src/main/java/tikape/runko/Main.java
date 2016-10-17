@@ -93,15 +93,12 @@ public class Main {
             return "";
         });
 
-        get(
-                "/", (req, res) -> {
-                    HashMap map = new HashMap<>();
-                    map.put("aiheet", foorumDao.findAll());
+        get("/", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("aiheet", foorumDao.findAll());
 
-                    return new ModelAndView(map, "index");
-                },
-                new ThymeleafTemplateEngine()
-        );
+            return new ModelAndView(map, "index");
+        }, new ThymeleafTemplateEngine());
 
 //        get("/aiheet", (req, res) -> {
 //            HashMap map = new HashMap<>();
