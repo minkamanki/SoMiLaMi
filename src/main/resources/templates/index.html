@@ -24,6 +24,16 @@
                 <td th:text="${aihe.viimViestiAika}"></td>	
             </tr>
         </table>
+        
+        <br></br>
+        
+        <h2>Lisää uusi aihealue:</h2>
+        
+        <form action="/" method="POST">
+            <span>Otsikko</span>
+            <input type="text" name="nimi"/>
+            <input type="submit" value="Lisää!"/>
+        </form>
 
     </body>
 </html>

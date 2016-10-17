@@ -3,6 +3,7 @@ package tikape.runko;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import spark.ModelAndView;
 import static spark.Spark.*;
@@ -23,12 +24,11 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        //Tekstikäyttöliittymä alkaa. Paina ENTER, jos haluat käynnistää web-sovelluksen.
         System.out.println("ALUEET" + '\n');
 
         HashMap<Aihealue, String> aihenimet = new HashMap<>();
 
-//        List<Aihealue> aiheet = foorumDao.findAll();
-//        ArrayList<String> aiheNimet = new ArrayList<>();
         for (Aihealue a : foorumDao.findAll()) {
             System.out.println(a.getNimi() + '\n');
             aihenimet.put(a, a.getNimi());
@@ -63,7 +63,7 @@ public class Main {
                                 if (syote.equals(k.getOtsikko())) {
                                     System.out.println(k.getSisalto());
                                     loytyiko = true;
-                                    
+
                                     System.out.println("Tähän tulee vastauksia");
                                     syote = scanner.nextLine();
                                 }
@@ -79,6 +79,19 @@ public class Main {
             System.out.println("Computer says no. Valitse aihealue: ");
             syote = scanner.nextLine();
         }
+        //Tekstikäyttöliittymä loppuu.
+
+        post("/", (req, res) -> {
+            String otsikko = req.queryParams("nimi").trim();
+
+            if (!otsikko.isEmpty()) {
+                Aihealue a = new Aihealue(otsikko, null, null);
+                foorumDao.addAihealue(a);
+            }
+
+            res.redirect("/");
+            return "";
+        });
 
         get(
                 "/", (req, res) -> {

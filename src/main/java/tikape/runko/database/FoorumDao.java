@@ -24,6 +24,15 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         this.database = database;
     }
 
+    public void addAihealue(Aihealue aihe) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Aihealue(nimi) VALUES (?);.quit");
+        stmt.setString(1, aihe.getNimi());
+        stmt.execute();
+        stmt.close();
+        connection.close();
+    }
+
     @Override
     public Aihealue findOne(Integer key) throws SQLException {
 //        Connection connection = database.getConnection();
@@ -33,7 +42,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
 //        ResultSet rs = stmt.executeQuery();
 //        boolean hasOne = rs.next();
 //        if (!hasOne) {
-            return null;
+        return null;
 //        }
 //
 //        Integer id = rs.getInt("id");
@@ -54,11 +63,8 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT a.nimi, COUNT(ka.id) AS viesteja, a.id, ka.aika FROM Aihealue a INNER JOIN Keskustelunavaus ka ON a.id = ka.aihe GROUP BY a.nimi;");
 
-
 // INNER JOIN Vastaus v ON ka.id = v.viesti
 //SELECT *, ka.id AS kaTunnus FROM Aihealue a INNER JOIN Keskustelunavaus ka ON a.id = ka.aihe
-
-
         ResultSet rs = stmt.executeQuery();
         List<Aihealue> aiheet = new ArrayList<>();
         while (rs.next()) {
@@ -66,7 +72,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
             String nimi = rs.getString("nimi");
             Integer viesteja = rs.getInt("viesteja");
             String viimViestiAika = rs.getString("aika");
-            
+
             aiheet.add(new Aihealue(id, nimi, viesteja, viimViestiAika));
 
         }
@@ -99,7 +105,6 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
             Integer vastauksiaKpl = rs.getInt("vastauksiaKpl");
             String viimVastaus = rs.getString("viimVastaus");
             String aihealueNimi = rs.getString("nimi");
-
 
             keskustelut.add(new Keskustelunavaus(id, lahettaja, otsikko, sisalto, aika, aihealue, vastauksiaKpl, viimVastaus, aihealueNimi));
         }

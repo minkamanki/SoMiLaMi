@@ -14,6 +14,13 @@ public class Aihealue {
         this.viimViestiAika = viimViestiAika;
     }
 
+    public Aihealue(String nimi, String viimViestiAika, Integer viesteja) {
+        this.nimi = nimi;
+        this.viimViestiAika = viimViestiAika;
+        this.viesteja = viesteja;
+    }
+    
+
     public void setViimViestiAika(String viimViestiAika) {
         this.viimViestiAika = viimViestiAika;
     }
