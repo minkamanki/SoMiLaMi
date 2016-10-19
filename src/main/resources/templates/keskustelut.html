@@ -21,5 +21,22 @@
                 <td th:text="${keskustelu.viimVastaus}"></td>	
             </tr>
         </table>
+         
+         <br></br>
+         
+         <h2>Lisää uusi keskustelunavaus:</h2>
+        
+        <form action="/aihe/:id" method="POST">
+            <textarea maxlength="50" placeholder="Nimimerkki" name="nimimerkki" rows="1" cols="50"/>
+            <br></br>
+            <br></br>
+            <textarea maxlength="50" placeholder="Otsikko" name="nimi" rows="1" cols="50"/>
+            <br></br>
+            <textarea maxlength="255" placeholder="Avaa keskustelu tähän. Älä jooko trollaa :)" name="sisalto" rows="5" cols="50"/>
+            <br></br>
+            <br></br>
+            <input type="submit" value="Lisää!"/>
+        </form>
+         
     </body>
 </html>

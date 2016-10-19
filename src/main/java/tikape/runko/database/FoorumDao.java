@@ -33,28 +33,43 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         connection.close();
     }
 
+    public void addKeskustelunavaus(Keskustelunavaus ka) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Keskustelunavaus (String lahettaja, String otsikko, String sisalto, Integer aihe, aihealueNimi) VALUES (?, ?, ?, ?, ?)");
+        stmt.setString(1, ka.getLahettaja());
+        stmt.setString(1, ka.getOtsikko());
+        stmt.setString(1, ka.getSisalto());
+        stmt.setInt(1, ka.getAihe());
+        stmt.setString(1, ka.getAihealueNimi());
+        stmt.executeUpdate();
+        stmt.close();
+        connection.close();
+    }
+
     @Override
     public Aihealue findOne(Integer key) throws SQLException {
-//        Connection connection = database.getConnection();
-//        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihealue WHERE id = ?");
-//        stmt.setObject(1, key);
-//
-//        ResultSet rs = stmt.executeQuery();
-//        boolean hasOne = rs.next();
-//        if (!hasOne) {
-        return null;
-//        }
-//
-//        Integer id = rs.getInt("id");
-//        String nimi = rs.getString("nimi");
-//
-//        Aihealue o = new Aihealue(id, nimi);
-//
-//        rs.close();
-//        stmt.close();
-//        connection.close();
-//
-//        return o;
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihealue WHERE id = ?");
+        stmt.setObject(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            return null;
+        }
+
+        Integer id = rs.getInt("id");
+        String nimi = rs.getString("nimi");
+        Integer viesteja = rs.getInt("viesteja");
+        String viimViestiAika = rs.getString("aika");
+
+        Aihealue o = new Aihealue(id, nimi, viesteja, viimViestiAika);
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return o;
     }
 
     @Override
@@ -91,7 +106,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
 
     public List<Keskustelunavaus> findKeskustelut(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT ka.otsikko, ka.lähettäjä, ka.sisältö, ka.aika, ka.aihe, COUNT(v.id) AS vastauksiaKpl, ka.id, v.aika as viimVastaus, a.nimi FROM Keskustelunavaus ka LEFT JOIN Vastaus v ON ka.id = v.viesti JOIN Aihealue a ON a.id = ka.aihe WHERE ka.aihe = " + key + " GROUP BY ka.otsikko;");
+        PreparedStatement stmt = connection.prepareStatement("SELECT ka.otsikko, ka.lähettäjä, ka.sisältö, ka.aika, ka.aihe, COUNT(v.id) AS vastauksiaKpl, ka.id, v.aika as viimVastaus, a.nimi FROM Keskustelunavaus ka LEFT JOIN Vastaus v ON ka.id = v.viesti LEFT JOIN Aihealue a ON a.id = ka.aihe WHERE ka.aihe = " + key + " GROUP BY ka.otsikko;");
 
         ResultSet rs = stmt.executeQuery();
         List<Keskustelunavaus> keskustelut = new ArrayList<>();
@@ -112,6 +127,8 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         rs.close();
         stmt.close();
         connection.close();
+
+        System.out.println("OMgLOL");
 
         return keskustelut;
     }

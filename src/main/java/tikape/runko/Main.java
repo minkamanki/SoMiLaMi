@@ -92,6 +92,22 @@ public class Main {
             res.redirect("/");
             return "";
         });
+        
+        post("/aihe/:id", (req, res) -> {
+            String lahettaja = req.queryParams("nimimerkki").trim();
+            String otsikko = req.queryParams("nimi").trim();
+            String sisalto = req.queryParams("sisalto").trim();
+            
+            Aihealue a = foorumDao.findOne((Integer.parseInt(req.params("id"))));
+            
+            if (!lahettaja.isEmpty() && !otsikko.isEmpty() && !sisalto.isEmpty()) {
+                Keskustelunavaus ka = new Keskustelunavaus(lahettaja, otsikko, sisalto, a.getId(), a.getNimi());
+                foorumDao.addKeskustelunavaus(ka);
+            }
+            
+            res.redirect("/aihe/:id");
+            return "";
+        });
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -106,11 +122,15 @@ public class Main {
 //
 //            return new ModelAndView(map, "aiheet");
 //        }, new ThymeleafTemplateEngine());
-        get(
-                "/aihe/:id", (req, res) -> {
-                    HashMap map = new HashMap<>();
-                    map.put("keskustelut", foorumDao.findKeskustelut(Integer.parseInt(req.params("id"))));
 
+        get("/aihe/:id", (req, res) -> {
+                    HashMap map = new HashMap<>();
+
+//                    if (foorumDao.findKeskustelut(Integer.parseInt(req.params("id"))).isEmpty()) {
+//
+//                    } else {
+                        map.put("keskustelut", foorumDao.findKeskustelut(Integer.parseInt(req.params("id"))));
+                    
                     return new ModelAndView(map, "keskustelut");
                 },
                 new ThymeleafTemplateEngine()

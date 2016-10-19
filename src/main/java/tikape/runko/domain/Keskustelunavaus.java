@@ -23,6 +23,14 @@ public class Keskustelunavaus {
     private Integer vastauksiaKpl;
     private String aihealueNimi;
 
+    public Keskustelunavaus(String lahettaja, String otsikko, String sisalto, Integer aihe, String aihealueNimi) {
+        this.lahettaja = lahettaja;
+        this.otsikko = otsikko;
+        this.sisalto = sisalto;
+        this.aihe = aihe;
+        this.aihealueNimi = aihealueNimi;
+    }
+
     public Keskustelunavaus(Integer id, String lahettaja, String otsikko, String sisalto, String aika, Integer aihe, Integer vastauksiaKpl, String viimVastaus, String aihealueNimi) {
         this.id = id;
         this.lahettaja = lahettaja;
