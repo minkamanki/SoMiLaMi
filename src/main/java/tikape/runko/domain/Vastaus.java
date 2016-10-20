@@ -15,24 +15,46 @@ public class Vastaus {
 
     private Integer id;
     private Integer viesti;
-    private String lahetaja;
+    private String lahettaja;
     private String sisalto;
     private String aika;
+    private String viestiOtsikko;
+    private String viestiSisalto;
 
-    public Vastaus(Integer id, Integer viesti, String lahetaja, String sisalto, String aika) {
+    public Vastaus(Integer id, Integer viesti, String lahetaja, String sisalto, String aika, String viestiOtsikko, String viestiSisalto) {
         this.id = id;
         this.viesti = viesti;
-        this.lahetaja = lahetaja;
+        this.lahettaja = lahetaja;
         this.sisalto = sisalto;
         this.aika = aika;
+        this.viestiOtsikko = viestiOtsikko;
+        this.viestiSisalto = viestiSisalto;
     }
+
+    public String getViestiOtsikko() {
+        return viestiOtsikko;
+    }
+
+    public String getViestiSisalto() {
+        return viestiSisalto;
+    }
+
+    public void setViestiOtsikko(String viestiOtsikko) {
+        this.viestiOtsikko = viestiOtsikko;
+    }
+
+    public void setViestiSisalto(String viestiSisalto) {
+        this.viestiSisalto = viestiSisalto;
+    }
+    
+    
 
     public String getAika() {
         return aika;
     }
 
-    public String getLahetaja() {
-        return lahetaja;
+    public String getLahettaja() {
+        return lahettaja;
     }
 
     public String getSisalto() {
@@ -56,8 +78,8 @@ public class Vastaus {
         this.aika = aika;
     }
 
-    public void setLahetaja(String lahetaja) {
-        this.lahetaja = lahetaja;
+    public void setLahettaja(String lahetaja) {
+        this.lahettaja = lahetaja;
     }
 
     public void setSisalto(String sisalto) {

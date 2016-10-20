@@ -16,9 +16,9 @@
                 <th>Viimeisin vastaus</th>
             </tr>
             <tr th:each="keskustelu: ${keskustelut}">
-                <td th:text="${keskustelu.otsikko}"></td>
-                <td th:text="${keskustelu.vastauksiaKpl}"></td>	
-                <td th:text="${keskustelu.viimVastaus}"></td>	
+                <td> <a th:href="${'/keskustelu/' + keskustelu.id}"><span th:text="${keskustelu.otsikko}"></span></a></td>
+                <td> <a th:href="${'/keskustelu/' + keskustelu.id}"><span th:text="${keskustelu.vastauksiaKpl}"></span></a></td>
+                <td> <a th:href="${'/keskustelu/' + keskustelu.id}"><span th:text="${keskustelu.viimVastaus}"></span></a></td>
             </tr>
         </table>
          

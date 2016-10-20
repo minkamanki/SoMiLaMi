@@ -132,29 +132,34 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
 
         return keskustelut;
     }
-//
-//    public List<Vastaus> findVastaukset(Integer key) throws SQLException {
-//        Connection connection = database.getConnection();
-//        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaus WHERE viesti = " + key + ";");
-//
-//        ResultSet rs = stmt.executeQuery();
-//        List<Vastaus> vastaukset = new ArrayList<>();
-//        while (rs.next()) {
-//            Integer id = rs.getInt("id");
-//            String lahettaja = rs.getString("lähettäjä");
-//            String sisalto = rs.getString("sisältö");
-//            String aika = rs.getString("aika");
-//            Integer viesti = rs.getInt("viesti");
-//
-//            vastaukset.add(new Vastaus(id, viesti, lahettaja, sisalto, aika));
-//
-//        }
-//
-//        rs.close();
-//        stmt.close();
-//        connection.close();
-//
-//        return vastaukset;
-//    }
+
+    public List<Vastaus> findVastaukset(Integer key) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaus INNER JOIN Keskustelunavaus ON Vastaus.viesti = Keskustelunavaus.id WHERE Vastaus.viesti = ?");
+        stmt.setObject(1, key);
+        
+        ResultSet rs = stmt.executeQuery();
+        List<Vastaus> vastaukset = new ArrayList<>();
+        while (rs.next()) {
+            Integer id = rs.getInt("id");
+            String lahettaja = rs.getString("lähettäjä");
+            String sisalto = rs.getString("sisältö");
+            String aika = rs.getString("aika");
+            Integer viesti = rs.getInt("viesti");
+            String otsikko = rs.getString(8);
+            String alkLah = rs.getString(9);
+
+            vastaukset.add(new Vastaus(id, viesti, lahettaja, sisalto, aika, otsikko, alkLah));
+
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return vastaukset;
+    }
+
+
 
 }

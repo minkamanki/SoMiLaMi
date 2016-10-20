@@ -58,21 +58,21 @@ public class Main {
 
                         boolean loytyiko = false;
 
-                        while (loytyiko == false) {
-                            for (Keskustelunavaus k : keskustelut) {
-                                if (syote.equals(k.getOtsikko())) {
-                                    System.out.println(k.getSisalto());
-                                    loytyiko = true;
-
-                                    System.out.println("Tähän tulee vastauksia");
-                                    syote = scanner.nextLine();
-                                }
-                            }
-                            if (loytyiko = false) {
-                                System.out.println("Computer says no. Valitse keskustelu: ");
-                                syote = scanner.nextLine();
-                            }
-                        }
+//                        while (loytyiko == false) {
+//                            for (Keskustelunavaus k : keskustelut) {
+//                                if (syote.equals(k.getOtsikko())) {
+//                                    System.out.println(k.getSisalto());
+//                                    loytyiko = true;
+//
+//                                    System.out.println("Tähän tulee vastauksia");
+//                                    syote = scanner.nextLine();
+//                                }
+//                            }
+//                            if (loytyiko = false) {
+//                                System.out.println("Computer says no. Valitse keskustelu: ");
+//                                syote = scanner.nextLine();
+//                            }
+//                        }
                     }
                 }
             }
@@ -135,12 +135,12 @@ public class Main {
                 },
                 new ThymeleafTemplateEngine()
         );
-//        
-//        get("/keskustelu/:id", (req, res) -> {
-//            HashMap map = new HashMap<>();
-//            map.put("vastaukset", foorumDao.findVastaukset(Integer.parseInt(req.params("id"))));
-//
-//            return new ModelAndView(map, "keskustelu");
-//        }, new ThymeleafTemplateEngine());
+        
+        get("/keskustelu/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("vastaukset", foorumDao.findVastaukset(Integer.parseInt(req.params("id"))));
+
+            return new ModelAndView(map, "keskustelu");
+        }, new ThymeleafTemplateEngine());
     }
 }

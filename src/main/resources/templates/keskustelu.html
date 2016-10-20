@@ -6,17 +6,36 @@
         <meta charset="utf-8" />
     </head>
 
+    <!--    <body>
+            <p>Vastaukset:</p>
+            <ol>
+    
+                <li th:each="vastaus: ${vastaukset}">
+                    <p><span th:text="${vastaus.sisalto}"></span></p>
+                </li>
+    
+                
+    
+            </ol>
+            <p><a href="/aiheet">Tästä pääset takaisin aihealueisiin.</a></p>
+        </body>-->
+
+
     <body>
-        <p>Vastaukset:</p>
-        <ol>
+        <h1>Viesti:  <span th:text="${vastaukset[0].viestiOtsikko}"></span></h1>
+        <p><span th:text="${vastaukset[0].viestiSisalto}"></span></p>
+        <table>
+            <tr>
+                <th>Aika</th>
+                <th>Vastaaja</th>
+                <th>Vastaus</th>
+            </tr>
+            <tr th:each="vastaus: ${vastaukset}">
+                <td th:text="${vastaus.aika}"></td>
+                <td th:text="${vastaus.lahettaja}"></td>
+                <td th:text="${vastaus.sisalto}"></td>	
+            </tr>
+        </table>
 
-            <li th:each="vastaus: ${vastaukset}">
-                <p><span th:text="${vastaus.sisalto}"></span></p>
-            </li>
-
-            
-
-        </ol>
-        <p><a href="/aiheet">Tästä pääset takaisin aihealueisiin.</a></p>
     </body>
 </html>
