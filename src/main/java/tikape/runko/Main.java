@@ -136,7 +136,7 @@ public class Main {
         get("/keskustelu/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("vastaukset", foorumDao.findVastaukset(Integer.parseInt(req.params("id"))));
-
+  
             return new ModelAndView(map, "keskustelu");
         }, new ThymeleafTemplateEngine());
 
