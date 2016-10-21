@@ -19,7 +19,7 @@
                 <th>Viimeisin viesti</th>
             </tr>
             <tr th:each="aihe: ${aiheet}">
-                <td> <a th:href="${'/aihe/' + aihe.id}"><span th:text="${aihe.nimi}"></span></a></td>
+                <td> <a th:href="${'/aihe.nimi/' + aihe.id}"><span th:text="${aihe.nimi}"></span></a></td>
                 <td th:text="${aihe.viesteja}"></td>	
                 <td th:text="${aihe.viimViestiAika}"></td>	
             </tr>

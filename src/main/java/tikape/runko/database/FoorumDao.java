@@ -24,23 +24,22 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         this.database = database;
     }
 
-    public void addAihealue(Aihealue aihe) throws SQLException {
+    public void addAihealue(String aihe) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Aihealue (nimi) VALUES (?)");
-        stmt.setString(1, aihe.getNimi());
+        stmt.setString(1, aihe);
         stmt.executeUpdate();
         stmt.close();
         connection.close();
     }
 
-    public void addKeskustelunavaus(Keskustelunavaus ka) throws SQLException {
+    public void addKeskustelunavaus(String lahettaja, String otsikko, String sisalto, Integer aihe) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Keskustelunavaus (String lahettaja, String otsikko, String sisalto, Integer aihe, aihealueNimi) VALUES (?, ?, ?, ?, ?)");
-        stmt.setString(1, ka.getLahettaja());
-        stmt.setString(1, ka.getOtsikko());
-        stmt.setString(1, ka.getSisalto());
-        stmt.setInt(1, ka.getAihe());
-        stmt.setString(1, ka.getAihealueNimi());
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Keskustelunavaus (lähettäjä, otsikko, sisältö, aika, aihe) VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?)");
+        stmt.setString(1, lahettaja);
+        stmt.setString(2, otsikko);
+        stmt.setString(3, sisalto);
+        stmt.setInt(4, aihe);
         stmt.executeUpdate();
         stmt.close();
         connection.close();
@@ -137,7 +136,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaus INNER JOIN Keskustelunavaus ON Vastaus.viesti = Keskustelunavaus.id WHERE Vastaus.viesti = ?");
         stmt.setObject(1, key);
-        
+
         ResultSet rs = stmt.executeQuery();
         List<Vastaus> vastaukset = new ArrayList<>();
         while (rs.next()) {
@@ -160,6 +159,15 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         return vastaukset;
     }
 
-
+    public void addVastaus(String lahettaja, String sisalto, int aId) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Vastaus (lähettäjä, sisältö, aika, viesti) VALUES (?, ?, CURRENT_TIMESTAMP, ?)");
+        stmt.setString(1, lahettaja);
+        stmt.setString(2, sisalto);
+        stmt.setInt(3, aId);
+        stmt.executeUpdate();
+        stmt.close();
+        connection.close();
+    }
 
 }

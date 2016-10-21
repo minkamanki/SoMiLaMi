@@ -36,6 +36,20 @@
                 <td th:text="${vastaus.sisalto}"></td>	
             </tr>
         </table>
+                <h2>Lähetä vastaus</h2>
 
+        <form method="POST">
+            <textarea maxlength="50" placeholder="Nimimerkki" name="nimimerkki" rows="1" cols="50"/>
+            <br></br>
+            <br></br>
+            <textarea maxlength="255" placeholder="Kirjoita vastaus tähän. Älä jooko trollaa :)" name="sisalto" rows="5" cols="50"/>
+            <br></br>
+            <br></br>
+            <input type="submit" value="Lähetä!"/>
+        </form>
+        <br></br>
+        <br></br>
+        <a th:href="${'/'}">Takaisin etusivulle</a>
     </body>
 </html>
+ 
