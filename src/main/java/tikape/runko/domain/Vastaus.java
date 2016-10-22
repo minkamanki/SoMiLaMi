@@ -89,5 +89,5 @@ public class Vastaus {
     public void setViesti(Integer viesti) {
         this.viesti = viesti;
     }
-
+//sfa
 }

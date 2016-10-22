@@ -70,7 +70,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
 
         return o;
     }
-
+//jsdjsa
     @Override
     public List<Aihealue> findAll() throws SQLException {
 

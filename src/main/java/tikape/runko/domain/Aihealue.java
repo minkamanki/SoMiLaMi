@@ -1,5 +1,5 @@
 package tikape.runko.domain;
-
+//dsad
 public class Aihealue {
 
     private Integer id;

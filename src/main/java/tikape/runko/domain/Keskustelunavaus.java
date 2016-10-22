@@ -58,7 +58,7 @@ public class Keskustelunavaus {
     public String getSisalto() {
         return sisalto;
     }
-
+//kdjflj
     public String getOtsikko() {
         return otsikko;
     }

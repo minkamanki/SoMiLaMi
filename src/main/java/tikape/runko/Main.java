@@ -106,7 +106,7 @@ public class Main {
             res.redirect("/aihe/" + aId);
             return "";
         });
-
+//jdfh
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("aiheet", foorumDao.findAll());
