@@ -23,12 +23,12 @@ public class Keskustelunavaus {
     private Integer vastauksiaKpl;
     private String aihealueNimi;
 
-    public Keskustelunavaus(String lahettaja, String otsikko, String sisalto, Integer aihe, String aihealueNimi) {
+    public Keskustelunavaus(Integer id, String lahettaja, String otsikko, String sisalto, Integer aihe) {
+        this.id = id;
         this.lahettaja = lahettaja;
         this.otsikko = otsikko;
         this.sisalto = sisalto;
         this.aihe = aihe;
-        this.aihealueNimi = aihealueNimi;
     }
 
     public Keskustelunavaus(Integer id, String lahettaja, String otsikko, String sisalto, String aika, Integer aihe, Integer vastauksiaKpl, String viimVastaus, String aihealueNimi) {
@@ -42,6 +42,8 @@ public class Keskustelunavaus {
         this.viimVastaus = viimVastaus;
         this.aihealueNimi = aihealueNimi;
     }
+
+
 
     public void setAihealueNimi(String aihealueNimi) {
         this.aihealueNimi = aihealueNimi;

@@ -137,8 +137,10 @@ public class Main {
         get("/keskustelu/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("vastaukset", foorumDao.findVastaukset(Integer.parseInt(req.params("id"))));
-            map.put("sisalto", foorumDao.getSisalto(Integer.parseInt(req.params("id"))));
-            map.put("otsikko", foorumDao.getViestinNimi(Integer.parseInt(req.params("id"))));
+            Keskustelunavaus a = foorumDao.findKeskustelu(Integer.parseInt(req.params("id")));
+            map.put("sisalto", a.getSisalto());
+            map.put("otsikko", a.getOtsikko());
+            map.put("aiheid", a.getAihe());
   
             return new ModelAndView(map, "keskustelu");
         }, new ThymeleafTemplateEngine());

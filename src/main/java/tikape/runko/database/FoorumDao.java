@@ -229,4 +229,31 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         return nimi;
     }
 
+    public Keskustelunavaus findKeskustelu(int key) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelunavaus WHERE id = ?");
+        stmt.setObject(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            return null;
+        }
+
+        Integer id = rs.getInt("id");
+        String lahettaja = rs.getString("lähettäjä");
+        String otsikko = rs.getString("otsikko");
+        String sisalto = rs.getString("sisältö");
+        Integer aihealue = rs.getInt("aihe");
+
+        Keskustelunavaus o = new Keskustelunavaus(id, lahettaja, otsikko, sisalto, aihealue);
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return o;
+
+    }
+
 }
