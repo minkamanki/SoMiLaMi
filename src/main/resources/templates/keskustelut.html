@@ -13,11 +13,13 @@
             <tr>
                 <th>Otsikko</th>
                 <th>Vastauksia yhteensä</th>
+                <th>Lähetetty</th>
                 <th>Viimeisin vastaus</th>
             </tr>
             <tr th:each="keskustelu: ${keskustelut}">
                 <td> <a th:href="${'/keskustelu/' + keskustelu.id}"><span th:text="${keskustelu.otsikko}"></span></a></td>
                 <td> <span th:text="${keskustelu.vastauksiaKpl}"></span></td>
+                <td> <span th:text="${keskustelu.aika}"></span></td>
                 <td> <span th:text="${keskustelu.viimVastaus}"></span></td>
             </tr>
         </table>

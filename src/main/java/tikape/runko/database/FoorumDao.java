@@ -71,6 +71,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         return o;
     }
 //jsdjsa
+
     @Override
     public List<Aihealue> findAll() throws SQLException {
 
@@ -105,7 +106,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
 
     public List<Keskustelunavaus> findKeskustelut(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT ka.otsikko, ka.lähettäjä, ka.sisältö, ka.aika, ka.aihe, COUNT(v.id) AS vastauksiaKpl, ka.id, v.aika as viimVastaus, a.nimi FROM Keskustelunavaus ka LEFT JOIN Vastaus v ON ka.id = v.viesti LEFT JOIN Aihealue a ON a.id = ka.aihe WHERE ka.aihe = " + key + " GROUP BY ka.otsikko;");
+        PreparedStatement stmt = connection.prepareStatement("SELECT ka.otsikko, ka.lähettäjä, ka.sisältö, ka.aika, ka.aihe, COUNT(v.id) AS vastauksiaKpl, ka.id, v.aika as viimVastaus, a.nimi FROM Keskustelunavaus ka LEFT JOIN Vastaus v ON ka.id = v.viesti LEFT JOIN Aihealue a ON a.id = ka.aihe WHERE ka.aihe = " + key + " GROUP BY ka.otsikko ORDER BY ka.aika DESC LIMIT 10;");
 
         ResultSet rs = stmt.executeQuery();
         List<Keskustelunavaus> keskustelut = new ArrayList<>();
@@ -126,8 +127,6 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         rs.close();
         stmt.close();
         connection.close();
-
-        System.out.println("OMgLOL");
 
         return keskustelut;
     }
@@ -168,6 +167,66 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         stmt.executeUpdate();
         stmt.close();
         connection.close();
+    }
+
+    public String findAiheNimi(Integer key) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihealue WHERE id = ?");
+        stmt.setObject(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            return null;
+        }
+
+        String nimi = rs.getString("nimi");
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return nimi;
+    }
+
+    public String getViestinNimi(int key) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelunavaus WHERE id = ?");
+        stmt.setObject(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            return null;
+        }
+
+        String nimi = rs.getString("otsikko");
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return nimi;
+    }
+
+    public Object getSisalto(int key) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelunavaus WHERE id = ?");
+        stmt.setObject(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            return null;
+        }
+
+        String nimi = rs.getString("sisältö");
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return nimi;
     }
 
 }

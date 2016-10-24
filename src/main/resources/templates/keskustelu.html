@@ -5,7 +5,7 @@
         <title>SoMiLaMi Foorum</title>
         <meta charset="utf-8" />
     </head>
-<!--sfa-->
+    <!--sfa-->
     <!--    <body>
             <p>Vastaukset:</p>
             <ol>
@@ -22,8 +22,8 @@
 
 
     <body>
-<!--        <h1>Viesti:  <span th:text="${otsikko}"></span></h1>
-        <p><span th:text="${sisalto}"></span></p>-->
+        <h1>Viesti:  <span th:text="${otsikko}"></span></h1>
+        <p><span th:text="${sisalto}"></span></p>
         <table>
             <tr>
                 <th>Aika</th>
@@ -36,7 +36,7 @@
                 <td th:text="${vastaus.sisalto}"></td>	
             </tr>
         </table>
-                <h2>Lähetä vastaus</h2>
+        <h2>Lähetä vastaus</h2>
 
         <form method="POST">
             <textarea maxlength="50" placeholder="Nimimerkki" name="nimimerkki" rows="1" cols="50"/>
@@ -52,4 +52,3 @@
         <a th:href="${'/'}">Takaisin etusivulle</a>
     </body>
 </html>
- 

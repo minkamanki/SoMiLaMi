@@ -127,6 +127,7 @@ public class Main {
 //
 //                    } else {
             map.put("keskustelut", foorumDao.findKeskustelut(Integer.parseInt(req.params("id"))));
+            map.put("aihe", foorumDao.findAiheNimi(Integer.parseInt(req.params("id"))));
 
             return new ModelAndView(map, "keskustelut");
         },
@@ -136,6 +137,8 @@ public class Main {
         get("/keskustelu/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("vastaukset", foorumDao.findVastaukset(Integer.parseInt(req.params("id"))));
+            map.put("sisalto", foorumDao.getSisalto(Integer.parseInt(req.params("id"))));
+            map.put("otsikko", foorumDao.getViestinNimi(Integer.parseInt(req.params("id"))));
   
             return new ModelAndView(map, "keskustelu");
         }, new ThymeleafTemplateEngine());
