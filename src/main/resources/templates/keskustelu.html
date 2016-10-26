@@ -4,28 +4,31 @@
     <head>
         <title>SoMiLaMi Foorum</title>
         <meta charset="utf-8" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+        
+        <style>
+            body {
+                margin: 15px;
+            }
+            tr, td, th {
+                padding: 5px;
+            }
+            .superOtsikko {
+                    color: rgb(57, 158, 54);
+                    background-color: rgb(255, 255, 255);
+                    text-shadow: rgb(46, 46, 46) 0px 1px 2px;
+            }
+        </style>
+        
     </head>
-    <!--sfa-->
-    <!--    <body>
-            <p>Vastaukset:</p>
-            <ol>
-    
-                <li th:each="vastaus: ${vastaukset}">
-                    <p><span th:text="${vastaus.sisalto}"></span></p>
-                </li>
-    
-                
-    
-            </ol>
-            <p><a href="/aiheet">Tästä pääset takaisin aihealueisiin.</a></p>
-        </body>-->
-
 
     <body>
-        <h1>Viesti:  <span th:text="${otsikko}"></span></h1>
+        <h1 class="superOtsikko">SoMiLaMi -foorum</h1>
+        <h2>Viesti:  <span th:text="${otsikko}"></span></h2>
         <p><span th:text="${sisalto}"></span></p>
         <table>
-            <tr>
+            <tr style="border-bottom:1px solid #000;">
                 <th>Aika</th>
                 <th>Vastaaja</th>
                 <th>Vastaus</th>
@@ -39,13 +42,11 @@
         <h2>Lähetä vastaus</h2>
 
         <form method="POST">
-            <textarea maxlength="50" placeholder="Nimimerkki" name="nimimerkki" rows="1" cols="50"/>
+            <input type="text" class="form-control" maxlength="50" placeholder="Nimimerkki" name="nimimerkki" style="width:50%;"/>
             <br></br>
+            <textarea class="form-control" maxlength="255" placeholder="Kirjoita vastaus tähän." name="sisalto" rows="5" cols="50" style="width:50%;"/>
             <br></br>
-            <textarea maxlength="255" placeholder="Kirjoita vastaus tähän. Älä jooko trollaa :)" name="sisalto" rows="5" cols="50"/>
-            <br></br>
-            <br></br>
-            <input type="submit" value="Lähetä!"/>
+            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-envelope"></span> Lähetä!</button>
         </form>
         <br></br>
         <br></br>
