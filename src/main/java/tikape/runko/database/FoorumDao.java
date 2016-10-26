@@ -189,45 +189,6 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         return nimi;
     }
 
-    public String getViestinNimi(int key) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelunavaus WHERE id = ?");
-        stmt.setObject(1, key);
-
-        ResultSet rs = stmt.executeQuery();
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
-
-        String nimi = rs.getString("otsikko");
-
-        rs.close();
-        stmt.close();
-        connection.close();
-
-        return nimi;
-    }
-
-    public Object getSisalto(int key) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelunavaus WHERE id = ?");
-        stmt.setObject(1, key);
-
-        ResultSet rs = stmt.executeQuery();
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
-
-        String nimi = rs.getString("sisältö");
-
-        rs.close();
-        stmt.close();
-        connection.close();
-
-        return nimi;
-    }
 
     public Keskustelunavaus findKeskustelu(int key) throws SQLException {
         Connection connection = database.getConnection();

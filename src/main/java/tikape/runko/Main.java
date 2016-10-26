@@ -58,21 +58,21 @@ public class Main {
 
                         boolean loytyiko = false;
 
-//                        while (loytyiko == false) {
-//                            for (Keskustelunavaus k : keskustelut) {
-//                                if (syote.equals(k.getOtsikko())) {
-//                                    System.out.println(k.getSisalto());
-//                                    loytyiko = true;
-//
-//                                    System.out.println("Tähän tulee vastauksia");
-//                                    syote = scanner.nextLine();
-//                                }
-//                            }
-//                            if (loytyiko = false) {
-//                                System.out.println("Computer says no. Valitse keskustelu: ");
-//                                syote = scanner.nextLine();
-//                            }
-//                        }
+                        while (loytyiko == false) {
+                            for (Keskustelunavaus k : keskustelut) {
+                                if (syote.equals(k.getOtsikko())) {
+                                    System.out.println(k.getSisalto());
+                                    loytyiko = true;
+
+                                    System.out.println("Tähän tulee vastauksia");
+                                    syote = scanner.nextLine();
+                                }
+                            }
+                            if (loytyiko = false) {
+                                System.out.println("Computer says no. Valitse keskustelu: ");
+                                syote = scanner.nextLine();
+                            }
+                        }
                     }
                 }
             }
