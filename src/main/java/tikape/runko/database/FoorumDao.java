@@ -78,8 +78,6 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT a.nimi, COUNT(ka.id) AS viesteja, a.id, ka.aika FROM Aihealue a LEFT JOIN Keskustelunavaus ka ON a.id = ka.aihe GROUP BY a.nimi;");
 
-// INNER JOIN Vastaus v ON ka.id = v.viesti
-//SELECT *, ka.id AS kaTunnus FROM Aihealue a INNER JOIN Keskustelunavaus ka ON a.id = ka.aihe
         ResultSet rs = stmt.executeQuery();
         List<Aihealue> aiheet = new ArrayList<>();
         while (rs.next()) {
@@ -106,7 +104,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
 
     public List<Keskustelunavaus> findKeskustelut(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT ka.otsikko, ka.lähettäjä, ka.sisältö, ka.aika, ka.aihe, COUNT(v.id) AS vastauksiaKpl, ka.id, v.aika as viimVastaus, a.nimi FROM Keskustelunavaus ka LEFT JOIN Vastaus v ON ka.id = v.viesti LEFT JOIN Aihealue a ON a.id = ka.aihe WHERE ka.aihe = " + key + " GROUP BY ka.otsikko ORDER BY ka.aika DESC LIMIT 10;");
+        PreparedStatement stmt = connection.prepareStatement("SELECT ka.otsikko, ka.lähettäjä, ka.sisältö, ka.aika, ka.aihe, COUNT(v.id) AS vastauksiaKpl, ka.id, v.aika as viimVastaus FROM Keskustelunavaus ka LEFT JOIN Vastaus v ON ka.id = v.viesti LEFT JOIN Aihealue a ON a.id = ka.aihe WHERE ka.aihe = " + key + " GROUP BY ka.otsikko ORDER BY ka.aika DESC LIMIT 10;");
 
         ResultSet rs = stmt.executeQuery();
         List<Keskustelunavaus> keskustelut = new ArrayList<>();
@@ -119,9 +117,8 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
             Integer aihealue = rs.getInt("aihe");
             Integer vastauksiaKpl = rs.getInt("vastauksiaKpl");
             String viimVastaus = rs.getString("viimVastaus");
-            String aihealueNimi = rs.getString("nimi");
 
-            keskustelut.add(new Keskustelunavaus(id, lahettaja, otsikko, sisalto, aika, aihealue, vastauksiaKpl, viimVastaus, aihealueNimi));
+            keskustelut.add(new Keskustelunavaus(id, lahettaja, otsikko, sisalto, aika, aihealue, vastauksiaKpl, viimVastaus));
         }
 
         rs.close();
@@ -133,7 +130,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
 
     public List<Vastaus> findVastaukset(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaus INNER JOIN Keskustelunavaus ON Vastaus.viesti = Keskustelunavaus.id WHERE Vastaus.viesti = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaus WHERE Vastaus.viesti = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -144,10 +141,8 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
             String sisalto = rs.getString("sisältö");
             String aika = rs.getString("aika");
             Integer viesti = rs.getInt("viesti");
-            String otsikko = rs.getString(8);
-            String alkLah = rs.getString(9);
 
-            vastaukset.add(new Vastaus(id, viesti, lahettaja, sisalto, aika, otsikko, alkLah));
+            vastaukset.add(new Vastaus(id, viesti, lahettaja, sisalto, aika));
 
         }
 

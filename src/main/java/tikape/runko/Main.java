@@ -33,65 +33,12 @@ public class Main {
 
         FoorumDao foorumDao = new FoorumDao(database);
 
-        Scanner scanner = new Scanner(System.in);
-        /*
-        //Tekstikäyttöliittymä alkaa. Paina ENTER, jos haluat käynnistää web-sovelluksen.
-        System.out.println("ALUEET" + '\n');
-
-        HashMap<Aihealue, String> aihenimet = new HashMap<>();
-
-        for (Aihealue a : foorumDao.findAll()) {
-            System.out.println(a.getNimi() + '\n');
-            aihenimet.put(a, a.getNimi());
-        }
-
-        System.out.println("Valitse aihealue: ");
-        String syote = scanner.nextLine();
-
-        while (!"".equals(syote)) {
-
-            if (aihenimet.containsValue(syote)) {
-
-                for (Aihealue a : aihenimet.keySet()) {
-
-                    if (a.getNimi().equals(syote)) {
-
-                        List<Keskustelunavaus> keskustelut = foorumDao.findKeskustelut(a.getId());
-
-                        System.out.println("KESKUSTELUT" + '\n');
-
-                        for (Keskustelunavaus k : keskustelut) {
-                            System.out.println(k.getOtsikko() + '\n');
-                        }
-
-                        System.out.println("Valitse keskustelu: ");
-                        syote = scanner.nextLine();
-
-                        boolean loytyiko = false;
-
-                        while (loytyiko == false) {
-                            for (Keskustelunavaus k : keskustelut) {
-                                if (syote.equals(k.getOtsikko())) {
-                                    System.out.println(k.getSisalto());
-                                    loytyiko = true;
-
-                                    System.out.println("Tähän tulee vastauksia");
-                                    syote = scanner.nextLine();
-                                }
-                            }
-                            if (loytyiko = false) {
-                                System.out.println("Computer says no. Valitse keskustelu: ");
-                                syote = scanner.nextLine();
-                            }
-                        }
-                    }
-                }
-            }
-            System.out.println("Computer says no. Valitse aihealue: ");
-            syote = scanner.nextLine();
-        }
         //Tekstikäyttöliittymä loppuu.
-        */
+        Kayttoliittyma kl = new Kayttoliittyma(foorumDao);
+        kl.tekstikayttoliityma();
+        
+        
+        
         post("/", (req, res) -> {
             String otsikko = req.queryParams("nimi").trim();
 

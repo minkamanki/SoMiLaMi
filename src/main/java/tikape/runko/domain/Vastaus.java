@@ -18,35 +18,15 @@ public class Vastaus {
     private String lahettaja;
     private String sisalto;
     private String aika;
-    private String viestiOtsikko;
-    private String viestiSisalto;
 
-    public Vastaus(Integer id, Integer viesti, String lahetaja, String sisalto, String aika, String viestiOtsikko, String viestiSisalto) {
+    public Vastaus(Integer id, Integer viesti, String lahetaja, String sisalto, String aika) {
         this.id = id;
         this.viesti = viesti;
         this.lahettaja = lahetaja;
         this.sisalto = sisalto;
         this.aika = aika;
-        this.viestiOtsikko = viestiOtsikko;
-        this.viestiSisalto = viestiSisalto;
-    }
 
-    public String getViestiOtsikko() {
-        return viestiOtsikko;
     }
-
-    public String getViestiSisalto() {
-        return viestiSisalto;
-    }
-
-    public void setViestiOtsikko(String viestiOtsikko) {
-        this.viestiOtsikko = viestiOtsikko;
-    }
-
-    public void setViestiSisalto(String viestiSisalto) {
-        this.viestiSisalto = viestiSisalto;
-    }
-    
     
 
     public String getAika() {
