@@ -99,6 +99,7 @@ public class Main {
             map.put("sisalto", a.getSisalto());
             map.put("otsikko", a.getOtsikko());
             map.put("aiheid", a.getAihe());
+            map.put("lahettaja", a.getLahettaja());
   
             return new ModelAndView(map, "keskustelu");
         }, new ThymeleafTemplateEngine());
