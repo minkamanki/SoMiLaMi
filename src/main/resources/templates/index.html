@@ -1,19 +1,36 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<!--skfjaskl-->
+    <!--skfjaskl-->
     <head>
         <title>SoMiLaMi Foorum</title>
         <meta charset="utf-8" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+
+        <style>
+            body {
+                margin: 15px;
+            }
+            tr, td, th {
+                padding: 5px;
+            }
+            .superOtsikko {
+                    color: rgb(57, 158, 54);
+                    background-color: rgb(255, 255, 255);
+                    text-shadow: rgb(46, 46, 46) 0px 1px 2px;
+            }
+        </style>
+
     </head>
 
     <body>
-        <h1>SoMiLaMi foorum</h1>
+        <h1 class="superOtsikko">SoMiLaMi -foorum</h1>
 
         <p>Tervetuloa foorumiimme!</p>
 
 
         <table>
-            <tr>
+            <tr style="border-bottom:1px solid #000;">
                 <th>Aihe</th>
                 <th>Viestejä yhteensä</th>
                 <th>Viimeisin viesti</th>
@@ -24,16 +41,16 @@
                 <td th:text="${aihe.viimViestiAika}"></td>	
             </tr>
         </table>
-        
+
         <br></br>
-        
+
         <h2>Lisää uusi aihealue:</h2>
-        
+
         <form action="/" method="POST">
-            <textarea maxlength="50" placeholder="Otsikko" name="nimi" rows="1" cols="50"/>
+            <input type="text" class="form-control" maxlength="50" placeholder="Otsikko" name="nimi" style="width:50%;"/>
             <br></br>
             <br></br>
-            <input type="submit" value="Lisää!"/>
+            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-envelope"></span> Lisää!</button>
         </form>
 
     </body>

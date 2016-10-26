@@ -4,10 +4,28 @@
     <head>
         <title>SoMiLaMi Foorum</title>
         <meta charset="utf-8" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+        
+        <style>
+            body {
+                margin: 15px;
+            }
+            tr, td, th {
+                padding: 5px;
+            }
+            .superOtsikko {
+                    color: rgb(57, 158, 54);
+                    background-color: rgb(255, 255, 255);
+                    text-shadow: rgb(46, 46, 46) 0px 1px 2px;
+            }
+        </style>
+        
     </head>
 
     <body>
-        <h1>Aiheet:</h1>
+        <h1 class="superOtsikko">SoMiLaMi -foorum</h1>
+        <h2>Aiheet:</h2>
 
         <ol>
             <li th:each="aihe: ${aiheet}">
