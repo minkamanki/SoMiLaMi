@@ -22,21 +22,19 @@ public class Main {
             port(Integer.valueOf(System.getenv("PORT")));
         }
         // käytetään oletuksena paikallista sqlite-tietokantaa
-        String jdbcOsoite = "jdbc:sqlite:kanta.db";
+        String jdbcOsoite = "jdbc:sqlite:SoMiLaMi.db";
         // jos heroku antaa käyttöömme tietokantaosoitteen, otetaan se käyttöön
         if (System.getenv("DATABASE_URL") != null) {
             jdbcOsoite = System.getenv("DATABASE_URL");
         } 
-
-        Database db = new Database(jdbcOsoite);
         
-        Database database = new Database("jdbc:sqlite:SoMiLaMi.db");
+        Database database = new Database(jdbcOsoite);
 //        database.init();
 
         FoorumDao foorumDao = new FoorumDao(database);
 
         Scanner scanner = new Scanner(System.in);
-
+        /*
         //Tekstikäyttöliittymä alkaa. Paina ENTER, jos haluat käynnistää web-sovelluksen.
         System.out.println("ALUEET" + '\n');
 
@@ -93,7 +91,7 @@ public class Main {
             syote = scanner.nextLine();
         }
         //Tekstikäyttöliittymä loppuu.
-
+        */
         post("/", (req, res) -> {
             String otsikko = req.queryParams("nimi").trim();
 
