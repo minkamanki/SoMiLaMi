@@ -22,12 +22,13 @@ public class Keskustelunavaus {
     private String viimVastaus;
     private Integer vastauksiaKpl;
 
-    public Keskustelunavaus(Integer id, String lahettaja, String otsikko, String sisalto, Integer aihe) {
+    public Keskustelunavaus(Integer id, String lahettaja, String otsikko, String sisalto, String aika, Integer aihe) {
         this.id = id;
         this.lahettaja = lahettaja;
         this.otsikko = otsikko;
         this.sisalto = sisalto;
         this.aihe = aihe;
+        this.aika= aika;
     }
 
     public Keskustelunavaus(Integer id, String lahettaja, String otsikko, String sisalto, String aika, Integer aihe, Integer vastauksiaKpl, String viimVastaus) {

@@ -26,19 +26,15 @@ public class Main {
         // jos heroku antaa käyttöömme tietokantaosoitteen, otetaan se käyttöön
         if (System.getenv("DATABASE_URL") != null) {
             jdbcOsoite = System.getenv("DATABASE_URL");
-        } 
-        
+        }
+
         Database database = new Database(jdbcOsoite);
 //        database.init();
 
         FoorumDao foorumDao = new FoorumDao(database);
 
-        //Tekstikäyttöliittymä loppuu.
         Kayttoliittyma kl = new Kayttoliittyma(foorumDao);
-        kl.tekstikayttoliityma();
-        
-        
-        
+
         post("/", (req, res) -> {
             String otsikko = req.queryParams("nimi").trim();
 
@@ -72,25 +68,14 @@ public class Main {
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
 
-//        get("/aiheet", (req, res) -> {
-//            HashMap map = new HashMap<>();
-//            map.put("aiheet", foorumDao.findAll());
-//
-//            return new ModelAndView(map, "aiheet");
-//        }, new ThymeleafTemplateEngine());
         get("/aihe/:id", (req, res) -> {
             HashMap map = new HashMap<>();
-
-//                    if (foorumDao.findKeskustelut(Integer.parseInt(req.params("id"))).isEmpty()) {
-//
-//                    } else {
+            Aihealue a = foorumDao.findOne(Integer.parseInt(req.params("id")));
             map.put("keskustelut", foorumDao.findKeskustelut(Integer.parseInt(req.params("id"))));
-            map.put("aihe", foorumDao.findAiheNimi(Integer.parseInt(req.params("id"))));
+            map.put("aihe", a.getNimi());
 
             return new ModelAndView(map, "keskustelut");
-        },
-                new ThymeleafTemplateEngine()
-        );
+        }, new ThymeleafTemplateEngine());
 
         get("/keskustelu/:id", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -100,7 +85,8 @@ public class Main {
             map.put("otsikko", a.getOtsikko());
             map.put("aiheid", a.getAihe());
             map.put("lahettaja", a.getLahettaja());
-  
+            map.put("aika", a.getAika());
+
             return new ModelAndView(map, "keskustelu");
         }, new ThymeleafTemplateEngine());
 
@@ -117,6 +103,9 @@ public class Main {
             res.redirect("/keskustelu/" + aId);
             return "";
         });
+
+        //käynnistetään tekstikäyttöliittymä
+        kl.tekstikayttoliityma();
 
     }
 }

@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.domain.Aihealue;
@@ -59,10 +58,8 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
 
         Integer id = rs.getInt("id");
         String nimi = rs.getString("nimi");
-        Integer viesteja = rs.getInt("viesteja");
-        String viimViestiAika = rs.getString("aika");
 
-        Aihealue o = new Aihealue(id, nimi, viesteja, viimViestiAika);
+        Aihealue o = new Aihealue(id, nimi);
 
         rs.close();
         stmt.close();
@@ -104,7 +101,8 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
 
     public List<Keskustelunavaus> findKeskustelut(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT ka.otsikko, ka.lähettäjä, ka.sisältö, ka.aika, ka.aihe, COUNT(v.id) AS vastauksiaKpl, ka.id, v.aika as viimVastaus FROM Keskustelunavaus ka LEFT JOIN Vastaus v ON ka.id = v.viesti LEFT JOIN Aihealue a ON a.id = ka.aihe WHERE ka.aihe = " + key + " GROUP BY ka.otsikko ORDER BY ka.aika DESC LIMIT 10;");
+        PreparedStatement stmt = connection.prepareStatement("SELECT *, COUNT(v.id) AS vastauksiaKpl, v.aika as viimVastaus FROM Keskustelunavaus ka LEFT JOIN Vastaus v ON ka.id = v.viesti WHERE ka.aihe = ? GROUP BY ka.otsikko ORDER BY ka.aika DESC LIMIT 10;");
+        stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
         List<Keskustelunavaus> keskustelut = new ArrayList<>();
@@ -164,27 +162,6 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         connection.close();
     }
 
-    public String findAiheNimi(Integer key) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihealue WHERE id = ?");
-        stmt.setObject(1, key);
-
-        ResultSet rs = stmt.executeQuery();
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
-
-        String nimi = rs.getString("nimi");
-
-        rs.close();
-        stmt.close();
-        connection.close();
-
-        return nimi;
-    }
-
-
     public Keskustelunavaus findKeskustelu(int key) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelunavaus WHERE id = ?");
@@ -200,9 +177,10 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
         String lahettaja = rs.getString("lähettäjä");
         String otsikko = rs.getString("otsikko");
         String sisalto = rs.getString("sisältö");
+        String aika = rs.getString("aika");
         Integer aihealue = rs.getInt("aihe");
 
-        Keskustelunavaus o = new Keskustelunavaus(id, lahettaja, otsikko, sisalto, aihealue);
+        Keskustelunavaus o = new Keskustelunavaus(id, lahettaja, otsikko, sisalto, aika, aihealue);
 
         rs.close();
         stmt.close();

@@ -25,9 +25,10 @@
 
     <body>
         <h1 class="superOtsikko">SoMiLaMi -foorum</h1>
-        <h2>Viesti:  <span th:text="${otsikko}"></span></h2>
-        <p>Lähettäjä: <span th:text="${lahettaja}"></span></p>
-        <p><span th:text="${sisalto}"></span></p>
+        <h2>Otsikko:  <span th:text="${otsikko}"></span></h2>
+        <h3>Lähettäjä: <span th:text="${lahettaja}"></span></h3> 
+        <p>Lähetetty: <span th:text="${aika}"></span></p>
+        <h4><span th:text="${sisalto}"></span></h4>
         <table>
             <tr style="border-bottom:1px solid #000;">
                 <th>Aika</th>
