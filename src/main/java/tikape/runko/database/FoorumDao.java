@@ -73,7 +73,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
     public List<Aihealue> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT a.nimi, COUNT(ka.id) AS viesteja, a.id, ka.aika FROM Aihealue a LEFT JOIN Keskustelunavaus ka ON a.id = ka.aihe GROUP BY a.nimi;");
+        PreparedStatement stmt = connection.prepareStatement("SELECT a.nimi, COUNT(ka.id) AS viesteja, a.id, MAX(ka.aika) AS aika FROM Aihealue a LEFT JOIN Keskustelunavaus ka ON a.id = ka.aihe GROUP BY a.nimi;");
 
         ResultSet rs = stmt.executeQuery();
         List<Aihealue> aiheet = new ArrayList<>();
@@ -101,7 +101,7 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
 
     public List<Keskustelunavaus> findKeskustelut(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT *, COUNT(v.id) AS vastauksiaKpl, v.aika as viimVastaus FROM Keskustelunavaus ka LEFT JOIN Vastaus v ON ka.id = v.viesti WHERE ka.aihe = ? GROUP BY ka.otsikko ORDER BY ka.aika DESC LIMIT 10;");
+        PreparedStatement stmt = connection.prepareStatement("SELECT *, COUNT(v.id) AS vastauksiaKpl, MAX(v.aika) as viimVastaus FROM Keskustelunavaus ka LEFT JOIN Vastaus v ON ka.id = v.viesti WHERE ka.aihe = ? GROUP BY ka.otsikko ORDER BY ka.aika DESC LIMIT 10;");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
