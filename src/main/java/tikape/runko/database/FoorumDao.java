@@ -9,6 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.domain.Aihealue;
@@ -33,12 +37,16 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
     }
 
     public void addKeskustelunavaus(String lahettaja, String otsikko, String sisalto, Integer aihe) throws SQLException {
+        Timestamp ts = Timestamp.valueOf(LocalDateTime.now(ZoneId.systemDefault()));
+        String aika = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(ts);
+
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Keskustelunavaus (lähettäjä, otsikko, sisältö, aika, aihe) VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?)");
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Keskustelunavaus (lähettäjä, otsikko, sisältö, aika, aihe) VALUES (?, ?, ?, ?, ?)");
         stmt.setString(1, lahettaja);
         stmt.setString(2, otsikko);
         stmt.setString(3, sisalto);
-        stmt.setInt(4, aihe);
+        stmt.setString(4, aika);
+        stmt.setInt(5, aihe);
         stmt.executeUpdate();
         stmt.close();
         connection.close();
@@ -152,11 +160,15 @@ public class FoorumDao implements Dao<Aihealue, Integer> {
     }
 
     public void addVastaus(String lahettaja, String sisalto, int aId) throws SQLException {
+        Timestamp ts = Timestamp.valueOf(LocalDateTime.now(ZoneId.systemDefault()));
+        String aika = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(ts);
+        
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Vastaus (lähettäjä, sisältö, aika, viesti) VALUES (?, ?, CURRENT_TIMESTAMP, ?)");
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Vastaus (lähettäjä, sisältö, aika, viesti) VALUES (?, ?, ?, ?)");
         stmt.setString(1, lahettaja);
         stmt.setString(2, sisalto);
-        stmt.setInt(3, aId);
+        stmt.setString(3, aika);
+        stmt.setInt(4, aId);
         stmt.executeUpdate();
         stmt.close();
         connection.close();
